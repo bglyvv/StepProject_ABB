@@ -12,10 +12,16 @@ import { Circles } from "react-loader-spinner";
 import os from "os-browserify";
 
 function MyTable() {
+  const getUrl ="http://"+process.env.REACT_APP_API_URL + "/user/list"
+  const editUrl ="http://"+ process.env.REACT_APP_API_URL + "/user/edit/"
+  const removeUrl ="http://"+ process.env.REACT_APP_API_URL + "/user/delete/"
   const [users, setUsers] = useState([]);
   const [mainLoading, setMainLoading] = useState(false);
+  const [url, setUrl] = useState()
   const getUsers = useCallback(async () => {
-    await axios.get(domain + "user/list").then((response) => {
+    console.log(process.env)
+    console.log(getUrl)
+    await axios.get(getUrl).then((response) => {
       console.log(response);
       var arr = [];
       if (response.status === 200) {
@@ -54,7 +60,7 @@ function MyTable() {
       name: $(".user-name-" + id).val(),
       phone: $(".user-phone-" + id).val(),
     };
-    axios.patch(domain + "user/edit/" + id, data).then((response) => {
+    axios.patch(editUrl + id, data).then((response) => {
       if (response.status === 200) {
         if (response.data.operation_status === "success") {
           updatedUser.editState = false;
@@ -66,7 +72,7 @@ function MyTable() {
   };
 
   const deleteUser = (id) => {
-    axios.delete(domain + "user/delete/" + id).then((response) => {
+    axios.delete(removeUrl + id).then((response) => {
       if (response.status === 200) {
         if (response.data.operation_status === "success") {
           alert(JSON.stringify(response.data))

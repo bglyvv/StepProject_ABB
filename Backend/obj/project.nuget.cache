@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "85n6XbcxdCF2G2Xboegy3Fj4yR6j5ooaBD8qNUWJSkZzRyOIkWRb8RBKrAN2nAh8lusdU52UQovaPbZe8DmznQ==",
+  "dgSpecHash": "qd9CJMnAX+Z+XE9wHiWXs3bjKjnkWvyCS4hZ5tNJmCrh/uYQ9BLIIDF/jDZJxbU2ANk3aHMJJALwaXxF/uhbuA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Kanan\\Desktop\\StepProject\\StepProject\\StepProject.csproj",
+  "projectFilePath": "C:\\Users\\Kanan\\Desktop\\StepProject_ABB\\Backend\\StepProject.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Kanan\\.nuget\\packages\\bouncycastle.netcore\\1.8.5\\bouncycastle.netcore.1.8.5.nupkg.sha512",
     "C:\\Users\\Kanan\\.nuget\\packages\\google.protobuf\\3.19.4\\google.protobuf.3.19.4.nupkg.sha512",

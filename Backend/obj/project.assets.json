@@ -2276,11 +2276,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Kanan\\Desktop\\StepProject\\StepProject\\StepProject.csproj",
+      "projectUniqueName": "C:\\Users\\Kanan\\Desktop\\StepProject_ABB\\Backend\\StepProject.csproj",
       "projectName": "StepProject",
-      "projectPath": "C:\\Users\\Kanan\\Desktop\\StepProject\\StepProject\\StepProject.csproj",
+      "projectPath": "C:\\Users\\Kanan\\Desktop\\StepProject_ABB\\Backend\\StepProject.csproj",
       "packagesPath": "C:\\Users\\Kanan\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Kanan\\Desktop\\StepProject\\StepProject\\obj\\",
+      "outputPath": "C:\\Users\\Kanan\\Desktop\\StepProject_ABB\\Backend\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Kanan\\AppData\\Roaming\\NuGet\\NuGet.Config",

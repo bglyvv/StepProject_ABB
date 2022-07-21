@@ -35,22 +35,20 @@ namespace StepProject
         {
             services.AddControllers().AddNewtonsoftJson(options =>
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-            
+
             services.AddDbContext<AppDbContext>(options =>
             {
-                options.UseMySql(Configuration.GetConnectionString("Default"), new MySqlServerVersion(new Version(8, 0, 28)));
+                options.UseMySql(Configuration.GetConnectionString("Default"), new MySqlServerVersion(new Version(8, 0)));
             });
 
 
             services.AddHttpClient();
             services.AddCors(options =>
             {
-                options.AddPolicy(name: "AllowOrigin",
+                options.AddDefaultPolicy(
                     builder =>
                     {
-                        builder.WithOrigins("https://localhost:3000", "http://localhost:3000")
-                                            .AllowAnyHeader()
-                                            .AllowAnyMethod();
+                        builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
                     });
             });
             services.AddHealthChecks().AddCheck<SqlConnectionHealthCheck>("SQLDBConnectionCheck");
@@ -64,10 +62,16 @@ namespace StepProject
                 app.UseDeveloperExceptionPage();
             }
 
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddEnvironmentVariables();
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
-            app.UseCors("AllowOrigin");
+            app.UseCors();
 
             var options = new HealthCheckOptions();
             options.ResponseWriter = async (c, r) =>
@@ -76,12 +80,12 @@ namespace StepProject
 
                 var result = JsonConvert.SerializeObject(new
                 {
-                    status = (r.Status.ToString() == "Healthy"?"OK":"Fail"),
+                    status = (r.Status.ToString() == "Healthy" ? "OK" : "Fail"),
                 });
                 await c.Response.WriteAsync(result);
             };
 
-            app.UseHealthChecks("/status",options);
+            app.UseHealthChecks("/status", options);
 
             app.UseAuthorization();
 

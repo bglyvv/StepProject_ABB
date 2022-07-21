@@ -1,20 +1,26 @@
 import React, { useState, useEffect, useCallback } from "react";
 import domain from "../../Domain/Domain";
 import axios from "axios";
+import os from "os-browserify";
 
 export default function Status() {
   const [statusData, setStatusData] = useState("");
   const [statusCode, setStatusCode] = useState("");
+  const [url, setUrl] = useState("http://"+process.env.REACT_APP_API_URL);
 
   const getStatus = useCallback(async () => {
+
     await axios
-      .get(domain + "status")
+      .get(url+ "/status")
       .then((response) => {
+        console.log(response)
         setStatusData(response.data);
         setStatusCode(response.status);
       })
       .catch((err) => {
         console.log(err);
+        setStatusData(response.data);
+        setStatusCode(response.status);
       });
   }, []);
 

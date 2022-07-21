@@ -10,6 +10,7 @@ using System;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace StepProject.Controllers
 {
@@ -18,10 +19,12 @@ namespace StepProject.Controllers
     public class UserController : ControllerBase
     {
         private readonly AppDbContext _ctx;
+        private readonly IConfiguration _config;
 
-        public UserController(AppDbContext ctx)
+        public UserController(AppDbContext ctx, IConfiguration config)
         {
             _ctx = ctx;
+            _config = config;
         }
 
         [HttpGet]
@@ -39,7 +42,7 @@ namespace StepProject.Controllers
                     status = "Connection to the server cannot be established"
                 });
             }
-            
+
         }
 
         [HttpGet]
@@ -79,7 +82,7 @@ namespace StepProject.Controllers
         {
             try
             {
-                if(user.Name== null || user.Phone == null)
+                if (user.Name == null || user.Phone == null)
                 {
                     return Ok(new UserOperationDTO
                     {
@@ -91,15 +94,15 @@ namespace StepProject.Controllers
                 await _ctx.Users.AddAsync(user);
                 await _ctx.SaveChangesAsync();
                 //return ValidationProblem(ModelState);
-                
+
                 return Ok(new UserOperationDTO
                 {
                     user_id = user.Id,
                     operation_status = "success",
                     operation_type = "add"
                 });
-               
-                
+
+
             }
             catch (System.Exception)
             {
@@ -119,7 +122,7 @@ namespace StepProject.Controllers
         {
             try
             {
-                User user = await _ctx.Users.FirstAsync(u=>u.Id == id);
+                User user = await _ctx.Users.FirstAsync(u => u.Id == id);
                 if (user == null)
                 {
                     return Ok(new UserOperationDTO
@@ -204,6 +207,14 @@ namespace StepProject.Controllers
             //return Ok(await _ctx.Users.ToListAsync());
         }
 
+        [HttpGet]
+        [Route("connection")]
+        public IActionResult GetConnection(int id)
+        {
+            return Ok(_config.GetConnectionString("Default"));
+
+
+        }
 
 
     }
