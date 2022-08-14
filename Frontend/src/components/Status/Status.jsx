@@ -19,8 +19,8 @@ export default function Status() {
       })
       .catch((err) => {
         console.log(err);
-        setStatusData(response.data);
-        setStatusCode(response.status);
+        setStatusData(err.data);
+        setStatusCode(err.status);
       });
   }, []);
 
